@@ -1,0 +1,42 @@
+.header {
+    background-color: #24252A;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 10%;
+
+    .logo {
+        color: var(--beige-text);
+        font-size: 1.5em;
+        display: flex;
+        align-items: center;
+        
+        img {
+            margin: 0px 5px;
+            cursor: pointer;
+            max-width: 50px;
+            max-height: 50px;
+            border-radius: 15px;
+        }
+    }
+
+    .nav_links {
+        list-style: none;
+
+        li {
+            display: inline-block;
+            padding: 0px 15px;
+        }
+
+        li a {
+            text-decoration: none;
+            color: var(--beige-text);
+            transition: all 0.3s ease 0s;
+        }
+
+        li a:hover {
+            color: var(--blue-hover);
+        }
+    }
+
+}
