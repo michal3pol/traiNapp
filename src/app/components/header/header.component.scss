@@ -10,6 +10,7 @@
         font-size: 1.5em;
         display: flex;
         align-items: center;
+        transition: all 1s ease-out;
 
         img {
             margin: 0px 5px;
@@ -18,6 +19,11 @@
             max-height: 50px;
             border-radius: 15px;
         }
+    }
+
+    .logo:hover {    
+        transform: scale(1.2);
+        cursor: pointer;
     }
 
     .nav_links {
