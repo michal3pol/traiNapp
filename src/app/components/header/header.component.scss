@@ -1,4 +1,5 @@
 .header {
+    margin-bottom: 20px;
     background-color: #24252A;
     display: flex;
     justify-content: space-between;
@@ -26,8 +27,12 @@
         cursor: pointer;
     }
 
-    .nav_links {
+    .nav-links {
         list-style: none;
+
+        ul {
+            padding: 0px;
+        }
 
         li {
             display: inline-block;
