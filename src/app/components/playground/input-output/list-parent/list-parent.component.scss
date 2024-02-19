@@ -1,0 +1,28 @@
+.lister {
+    background-color: rgb(222, 222, 222);
+    padding: 10px;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: row;
+    max-width: 1000px;
+    gap: 20px;
+
+    .component-description {
+        writing-mode: vertical-rl;
+        text-orientation: upright;
+        border-right: 1px solid;
+    }
+
+    app-input-child {
+        flex: 1;
+    }
+
+    ul {
+        flex: 1;
+        height: 110px;
+        overflow: scroll;
+        overflow-x: hidden;
+    }
+
+
+}
