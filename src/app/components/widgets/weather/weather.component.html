@@ -1,0 +1,32 @@
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>Weather</mat-card-title>
+    </mat-card-header>
+    <mat-card-actions>
+        <div>Select your parameters:</div>
+        <section class="example-section" [formGroup]="userParams">
+            <mat-checkbox color="primary" formControlName="temperature_2m">Temperature</mat-checkbox>
+            <mat-checkbox color="primary" formControlName="wind_speed_10m">Wind Speed</mat-checkbox>
+            <mat-checkbox color="primary" formControlName="rain">Rain</mat-checkbox>
+        </section>
+        <div class="current-location">
+            <ng-container *ngIf="position$ | async as position">
+                <mat-icon> location_on</mat-icon>
+                {{position.latitude}}, {{position.longitude}}
+            </ng-container>
+        </div>
+    </mat-card-actions>
+
+    <ng-container *ngIf="weather$ | async as weather">
+        <!-- {{weather | json}}
+        {{weather.current | json}} -->
+    
+        <ng-container *ngIf="weather.current?.temperature_2m">
+            Temperature: {{weather.current.temperature_2m}}
+        </ng-container>
+    
+    </ng-container>
+
+
+</mat-card>
+
