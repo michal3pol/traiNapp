@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { GeoLocationService } from '../../../services/geo-location.service';
-import { Observable, switchMap } from 'rxjs';
+import { Observable, combineLatest, switchMap } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import {
   GeoLocation,
@@ -26,27 +26,37 @@ import { MatIcon } from '@angular/material/icon';
   templateUrl: './weather.component.html',
   styleUrl: './weather.component.scss',
 })
-export class WeatherComponent {
-  position$: Observable<GeoLocation> = this.geoLocationService.getPosition();
-
-  weather$: Observable<WeatherData> = this.position$.pipe(
-    switchMap((coords) => {
-      return this.weatherApiService.getForecast(
-        coords,
-        Object.keys(this.userParams.value)
-      );
-    })
-  );
-
+export class WeatherComponent implements OnInit {
+  position$: Observable<GeoLocation> = this.geoLocationService.position$;
+  
   userParams = this.formBuilder.group({
-    temperature_2m: true,
+    temperature_2m: false,
     wind_speed_10m: false,
     rain: false,
   });
+
+  weather$: Observable<WeatherData> = combineLatest([this.position$, this.userParams.valueChanges]).pipe(
+    switchMap(([location, params]) => {
+      const filtered = Object.keys(params).filter((k) => {
+        return params[k as keyof typeof params]
+      })
+      return this.weatherApiService.getForecast(
+        location, filtered
+      )
+    })
+  )
 
   constructor(
     private geoLocationService: GeoLocationService,
     private weatherApiService: WeatherApiService,
     private formBuilder: FormBuilder
   ) {}
+
+  ngOnInit(): void {
+    // try to get data from user browser
+    this.geoLocationService.setNavigatorCurrentPosition(); 
+
+
+  }
+
 }

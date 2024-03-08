@@ -1,32 +1,40 @@
 <mat-card>
-    <mat-card-header>
-        <mat-card-title>Weather</mat-card-title>
-    </mat-card-header>
-    <mat-card-actions>
-        <div>Select your parameters:</div>
-        <section class="example-section" [formGroup]="userParams">
-            <mat-checkbox color="primary" formControlName="temperature_2m">Temperature</mat-checkbox>
-            <mat-checkbox color="primary" formControlName="wind_speed_10m">Wind Speed</mat-checkbox>
-            <mat-checkbox color="primary" formControlName="rain">Rain</mat-checkbox>
-        </section>
-        <div class="current-location">
-            <ng-container *ngIf="position$ | async as position">
-                <mat-icon> location_on</mat-icon>
-                {{position.latitude}}, {{position.longitude}}
-            </ng-container>
-        </div>
-    </mat-card-actions>
+  <mat-card-header>
+    <mat-card-title>Weather</mat-card-title>
+    <div class="current-location" *ngIf="position$ | async as position">
+      <mat-icon> location_on</mat-icon>
+      {{ position.latitude | number }}, {{ position.longitude | number }}
+    </div>
+  </mat-card-header>
+  <mat-card-actions>
+    <div>Select your parameters:</div>
+    <section
+      class="example-section"
+      [formGroup]="userParams"
+      onchange="updateApiRequest()"
+    >
+      <mat-checkbox color="primary" formControlName="temperature_2m"
+        >Temperature</mat-checkbox
+      >
+      <mat-checkbox color="primary" formControlName="wind_speed_10m"
+        >Wind Speed</mat-checkbox
+      >
+      <mat-checkbox color="primary" formControlName="rain">Rain</mat-checkbox>
+    </section>
+  </mat-card-actions>
 
+  <mat-card-content>
     <ng-container *ngIf="weather$ | async as weather">
-        <!-- {{weather | json}}
-        {{weather.current | json}} -->
-    
-        <ng-container *ngIf="weather.current?.temperature_2m">
-            Temperature: {{weather.current.temperature_2m}}
-        </ng-container>
-    
+      <div *ngIf="weather.current?.temperature_2m != undefined">
+        Temperature: {{ weather.current.temperature_2m }}  {{ weather.current_units.temperature_2m }}
+      </div>
+      <div *ngIf="weather.current?.wind_speed_10m != undefined">
+          Wind: {{ weather.current.wind_speed_10m }} {{ weather.current_units.wind_speed_10m }}
+      </div>
+      <div *ngIf="weather.current?.rain != undefined">
+          Rain: {{ weather.current.rain }} {{ weather.current_units.rain }}
+      </div>
     </ng-container>
-
+  </mat-card-content>
 
 </mat-card>
-

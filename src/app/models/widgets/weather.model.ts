@@ -11,7 +11,7 @@ export interface WeatherData {
   timezone: string;
   timezoneAbbreviation: string;
   elevation: number;
-  currentUnits: CurrentUnits;
+  current_units: CurrentUnits;
   current: CurrentData;
 }
 
@@ -26,7 +26,7 @@ export interface CurrentData {
 export interface CurrentUnits {
   time: string;
   interval: string;
-  temperature2m: string;
-  wind_speed10m: string;
+  temperature_2m: string;
+  wind_speed_10m: string;
   rain: string;
 }

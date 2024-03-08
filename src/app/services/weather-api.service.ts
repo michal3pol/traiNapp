@@ -21,7 +21,6 @@ export class WeatherApiService {
       current: currentDataParams?.join(',')
     })
 
-
     return this.http.get<WeatherData>(this.apiUrl, {
       params: params
     });
